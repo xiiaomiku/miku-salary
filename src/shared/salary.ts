@@ -3,7 +3,10 @@
  * Windows and macOS. The WidgetKit target mirrors this documented algorithm
  * because it must run inside Apple's native widget process.
  */
+export type CurrencyCode = 'MYR' | 'TWD';
+
 export interface SalarySettings {
+  currency: CurrencyCode;
   monthlySalary: number;
   payday: number;
   payoutTime: string; // HH:mm, local time
@@ -32,6 +35,7 @@ export interface SalarySnapshot {
 export const WIDGET_GROUP_ID = 'group.com.mikusalary.app';
 
 export const defaultSettings: SalarySettings = {
+  currency: 'MYR',
   monthlySalary: 5000,
   payday: 28,
   payoutTime: '09:00',
@@ -75,6 +79,7 @@ export function payCycleAt(at: Date, settings: Pick<SalarySettings, 'payday' | '
 }
 
 export function validateSettings(candidate: SalarySettings): SalarySettings {
+  const currency: CurrencyCode = candidate.currency === 'TWD' ? 'TWD' : 'MYR';
   const monthlySalary = Number(candidate.monthlySalary);
   const payday = Number(candidate.payday);
   const startAt = new Date(candidate.startAt);
@@ -86,7 +91,7 @@ export function validateSettings(candidate: SalarySettings): SalarySettings {
   }
   parseClock(candidate.payoutTime);
   if (Number.isNaN(startAt.getTime())) throw new Error('开始计算时间无效。');
-  return { monthlySalary, payday, payoutTime: candidate.payoutTime, startAt: startAt.toISOString() };
+  return { currency, monthlySalary, payday, payoutTime: candidate.payoutTime, startAt: startAt.toISOString() };
 }
 
 /**
@@ -146,13 +151,27 @@ export function formatDuration(ms: number): string {
   return `${minutes}分钟`;
 }
 
-export function formatMyr(value: number, fractionDigits = 2): string {
+export function formatMoney(value: number, currency: CurrencyCode, fractionDigits = 2): string {
+  const safeValue = Number.isFinite(value) ? value : 0;
+  if (currency === 'TWD') {
+    const amount = new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: fractionDigits,
+      maximumFractionDigits: fractionDigits,
+    }).format(safeValue);
+    return `NT$${amount}`;
+  }
   return new Intl.NumberFormat('en-MY', {
     style: 'currency',
     currency: 'MYR',
+    currencyDisplay: 'symbol',
     minimumFractionDigits: fractionDigits,
     maximumFractionDigits: fractionDigits,
-  }).format(Number.isFinite(value) ? value : 0);
+  }).format(safeValue);
+}
+
+/** Backward-compatible helper retained for integrations that imported the original formatter. */
+export function formatMyr(value: number, fractionDigits = 2): string {
+  return formatMoney(value, 'MYR', fractionDigits);
 }
 
 export function localDateTimeInputValue(iso: string): string {

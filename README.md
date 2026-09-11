@@ -1,13 +1,15 @@
 # Miku Salary
 
-A Miku-themed, liquid-glass desktop salary clock for Malaysia. The design intentionally gives most of the screen to one large, continuously growing number.
+A Miku-themed, liquid-glass desktop salary clock for Malaysia and Taiwan. The design intentionally gives most of the screen to one large, continuously growing number.
+
+Source: [github.com/xiiaomiku/miku-salary](https://github.com/xiiaomiku/miku-salary)
 
 ## Included
 
 - Windows Electron desktop app, packaged as an NSIS installer and a portable `.exe`.
 - macOS Electron desktop app, packaged as a `.dmg` and a `.zip`.
 - Native macOS WidgetKit extension for **small** and **medium** desktop widgets.
-- MYR monthly salary, monthly payday, payout time and local start-time configuration.
+- Selectable MYR or TWD monthly salary, monthly payday, payout time and local start-time configuration.
 - Actual-calendar-period calculation: a 28-, 29-, 30- or 31-day pay period has the correct hourly/second rate.
 - A continuous all-time total that does not reset when the next pay period begins.
 - Current-cycle earnings/progress, live hourly/minute/second rates, and countdown to the next payday.
@@ -65,8 +67,8 @@ npm run dist:win
 
 Artifacts are written to `release/`:
 
-- `Miku Salary-Setup-1.1.0.exe` — normal installer.
-- `Miku Salary-Portable-1.1.0.exe` — directly runnable portable version.
+- `Miku Salary-Setup-1.2.0.exe` — normal installer.
+- `Miku Salary-Portable-1.2.0.exe` — directly runnable portable version.
 
 Windows code signing is optional for building but recommended before public distribution, otherwise SmartScreen may show a reputation warning.
 
@@ -106,6 +108,8 @@ earned = monthly salary × elapsed seconds ÷ actual seconds in that pay period
 The total sums every elapsed piece from the configured start time to now. That makes the figure continuous over payday; only the **current-cycle** panel resets. For a payday of 29, 30 or 31, any shorter month uses its last calendar day.
 
 All dates are evaluated in the computer's local timezone, matching the entered `datetime-local` start time and payout time.
+
+The MYR/TWD setting changes the displayed currency and symbol; it does not fetch exchange rates or convert the entered salary amount.
 
 ## Data and privacy
 

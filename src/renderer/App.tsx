@@ -3,7 +3,7 @@ import {
   CALCULATION_NOTE,
   defaultSettings,
   formatDuration,
-  formatMyr,
+  formatMoney,
   isoFromLocalDateTimeInput,
   localDateTimeInputValue,
   SalarySettings,
@@ -63,6 +63,7 @@ export function App() {
     try {
       const form = new FormData(event.currentTarget);
       const next = validateSettings({
+        currency: String(form.get('currency')) === 'TWD' ? 'TWD' : 'MYR',
         monthlySalary: Number(form.get('monthlySalary')),
         payday: Number(form.get('payday')),
         payoutTime: String(form.get('payoutTime')),
@@ -104,9 +105,9 @@ export function App() {
         <img className="miku-companion" src={mikuCompanion} alt="" aria-hidden="true" />
         <div className="hero-label-row">
           <p className="eyebrow">从开始计算至今</p>
-          <span className="live-pill"><span className="live-dot" />MIKU LIVE</span>
+          <span className="live-pill"><span className="live-dot" />{settings.currency} · MIKU LIVE</span>
         </div>
-        <h1>{formatMyr(snapshot.totalEarned, 4)}</h1>
+        <h1>{formatMoney(snapshot.totalEarned, settings.currency, 4)}</h1>
         <p className="hero-status">{status}</p>
       </section>
 
@@ -118,7 +119,7 @@ export function App() {
             <p className="eyebrow">当前薪资周期</p>
             <p className="period">{snapshot.cycle.start.toLocaleString('zh-MY')} — {snapshot.cycle.end.toLocaleString('zh-MY')}</p>
           </div>
-          <p className="cycle-earned">{formatMyr(snapshot.cycleEarned, 2)}</p>
+          <p className="cycle-earned">{formatMoney(snapshot.cycleEarned, settings.currency, 2)}</p>
         </div>
         <div className="progress-track" aria-label={`周期进度 ${progressPercent}`}>
           <div className="progress-fill" style={{ width: progressPercent }} />
@@ -127,9 +128,9 @@ export function App() {
       </section>
 
       <section className="metrics" aria-label="实时薪资速率">
-        <ClockNumber label="每小时" value={formatMyr(snapshot.perHour, 2)} />
-        <ClockNumber label="每分钟" value={formatMyr(snapshot.perMinute, 4)} />
-        <ClockNumber label="每秒" value={formatMyr(snapshot.perSecond, 6)} />
+        <ClockNumber label="每小时" value={formatMoney(snapshot.perHour, settings.currency, 2)} />
+        <ClockNumber label="每分钟" value={formatMoney(snapshot.perMinute, settings.currency, 4)} />
+        <ClockNumber label="每秒" value={formatMoney(snapshot.perSecond, settings.currency, 6)} />
       </section>
 
       <section className="settings-section">
@@ -145,7 +146,14 @@ export function App() {
         {settingsOpen && (
           <form className="settings-form" onSubmit={save}>
             <label>
-              <span>MYR 月薪</span>
+              <span>货币</span>
+              <select name="currency" defaultValue={settings.currency} required>
+                <option value="MYR">MYR — 马来西亚令吉</option>
+                <option value="TWD">TWD — 新台币</option>
+              </select>
+            </label>
+            <label>
+              <span>月薪金额</span>
               <input name="monthlySalary" type="number" min="0" max="10000000" step="0.01" defaultValue={settings.monthlySalary} required />
             </label>
             <label>

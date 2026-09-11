@@ -10,4 +10,6 @@ For every elapsed portion of a period, earned value is:
 
 The accumulated total sums those portions from `startAt` to now. It therefore never resets at payday. The current-period amount is clamped at the later of `startAt` and that period's start.
 
+Currency selection (`MYR` or `TWD`) changes formatting only. It does not perform exchange-rate conversion and does not alter the calendar calculation.
+
 The TypeScript tests under `tests/` cover the important boundaries. Keep `native/macos-widget/SalaryClockWidget/SalaryClockWidget.swift` in lockstep with any future changes to this contract.

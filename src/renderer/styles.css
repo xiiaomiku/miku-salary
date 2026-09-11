@@ -51,7 +51,7 @@ body::after {
   background: radial-gradient(circle, rgba(157, 83, 255, 0.94), rgba(255, 111, 196, 0.18) 58%, transparent 72%);
 }
 
-button, input { font: inherit; }
+button, input, select { font: inherit; }
 button { cursor: pointer; }
 
 .shell {
@@ -416,7 +416,8 @@ footer {
   font-weight: 700;
 }
 
-.settings-form input {
+.settings-form input,
+.settings-form select {
   width: 100%;
   min-height: 48px;
   padding: 0 15px;
@@ -430,7 +431,8 @@ footer {
   transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
 }
 
-.settings-form input:focus {
+.settings-form input:focus,
+.settings-form select:focus {
   border-color: rgba(113, 85, 255, 0.58);
   background: rgba(255, 255, 255, 0.46);
   box-shadow: 0 0 0 4px rgba(113, 85, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);

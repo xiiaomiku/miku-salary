@@ -4,6 +4,7 @@ import WidgetKit
 private let appGroupIdentifier = "group.com.mikusalary.app"
 
 private struct SalarySettings: Codable {
+    let currency: String?
     let monthlySalary: Double
     let payday: Int
     let payoutTime: String
@@ -22,6 +23,7 @@ private struct Cycle {
 }
 
 private struct SalaryValues {
+    let currency: String
     let total: Double
     let cycleEarned: Double
     let progress: Double
@@ -103,6 +105,7 @@ private enum SalaryMath {
         let cycleStart = max(start, current.start)
         let cycleElapsed = max(0, min(1, now.timeIntervalSince(cycleStart) / duration))
         return SalaryValues(
+            currency: settings.currency == "TWD" ? "TWD" : "MYR",
             total: hasStarted ? earned(from: start, to: now, settings: settings) : 0,
             cycleEarned: hasStarted ? settings.monthlySalary * cycleElapsed : 0,
             progress: max(0, min(1, now.timeIntervalSince(current.start) / duration)),
@@ -110,12 +113,12 @@ private enum SalaryMath {
         )
     }
 
-    static func money(_ value: Double, digits: Int = 2) -> String {
+    static func money(_ value: Double, currency: String, digits: Int = 2) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.currencyCode = "MYR"
-        formatter.currencySymbol = "RM"
-        formatter.locale = Locale(identifier: "en_MY")
+        formatter.currencyCode = currency
+        formatter.currencySymbol = currency == "TWD" ? "NT$" : "RM"
+        formatter.locale = Locale(identifier: currency == "TWD" ? "zh_TW" : "en_MY")
         formatter.minimumFractionDigits = digits
         formatter.maximumFractionDigits = digits
         return formatter.string(from: NSNumber(value: value)) ?? "RM 0.00"
@@ -137,7 +140,7 @@ private struct SalaryEntry: TimelineEntry {
 
 private struct SalaryProvider: TimelineProvider {
     func placeholder(in context: Context) -> SalaryEntry {
-        SalaryEntry(date: .now, values: SalaryValues(total: 1234.56, cycleEarned: 890.12, progress: 0.42, nextPayday: .now.addingTimeInterval(4 * 86_400)))
+        SalaryEntry(date: .now, values: SalaryValues(currency: "TWD", total: 1234.56, cycleEarned: 890.12, progress: 0.42, nextPayday: .now.addingTimeInterval(4 * 86_400)))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SalaryEntry) -> Void) {
@@ -164,7 +167,7 @@ private struct SalaryWidgetView: View {
                 Text("累计收入")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
-                Text(SalaryMath.money(values.total, digits: family == .systemSmall ? 2 : 4))
+                Text(SalaryMath.money(values.total, currency: values.currency, digits: family == .systemSmall ? 2 : 4))
                     .font(family == .systemSmall ? .title2.weight(.bold) : .title.weight(.bold))
                     .monospacedDigit()
                     .minimumScaleFactor(0.62)
@@ -173,7 +176,7 @@ private struct SalaryWidgetView: View {
                 HStack {
                     Text("本周期 (Int((values.progress * 100).rounded()))%")
                     Spacer()
-                    Text(SalaryMath.money(values.cycleEarned))
+                    Text(SalaryMath.money(values.cycleEarned, currency: values.currency))
                 }
                 .font(.caption2)
                 .foregroundStyle(.secondary)

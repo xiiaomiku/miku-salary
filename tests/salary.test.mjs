@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { earnedBetween, payCycleAt, paydayInMonth, snapshotAt } from '../dist/shared/salary.js';
+import { earnedBetween, formatMoney, payCycleAt, paydayInMonth, snapshotAt } from '../dist/shared/salary.js';
 
 const settings = {
+  currency: 'MYR',
   monthlySalary: 3_100,
   payday: 15,
   payoutTime: '12:00',
@@ -46,4 +47,8 @@ test('a future start reports zero until the clock begins', () => {
   assert.equal(snapshot.totalEarned, 0);
   assert.equal(snapshot.cycleEarned, 0);
   assert.equal(snapshot.hasStarted, false);
+});
+
+test('formats TWD with the New Taiwan dollar symbol', () => {
+  assert.match(formatMoney(12_345.67, 'TWD', 2), /NT\$12,345\.67/);
 });
