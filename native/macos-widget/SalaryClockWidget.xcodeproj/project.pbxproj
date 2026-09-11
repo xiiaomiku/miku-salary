@@ -1,0 +1,82 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A00000000000000000000001 /* WidgetHostApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000011 /* WidgetHostApp.swift */; };
+		A00000000000000000000002 /* SalaryClockWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000000012 /* SalaryClockWidget.swift */; };
+		A00000000000000000000003 /* SalaryClockWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A00000000000000000000022 /* SalaryClockWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A00000000000000000000031 /* Embed App Extensions */ = {isa = PBXCopyFilesBuildPhase; buildActionMask = 2147483647; dstPath = ""; dstSubfolderSpec = 13; files = (A00000000000000000000003 /* SalaryClockWidget.appex in Embed App Extensions */, ); name = "Embed App Extensions"; runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A00000000000000000000011 /* WidgetHostApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetHostApp.swift; sourceTree = "<group>"; };
+		A00000000000000000000012 /* SalaryClockWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalaryClockWidget.swift; sourceTree = "<group>"; };
+		A00000000000000000000013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A00000000000000000000014 /* WidgetHost.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetHost.entitlements; sourceTree = "<group>"; };
+		A00000000000000000000015 /* SalaryClockWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SalaryClockWidget.entitlements; sourceTree = "<group>"; };
+		A00000000000000000000016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A00000000000000000000021 /* Miku Salary Widget Host.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Miku Salary Widget Host.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00000000000000000000022 /* SalaryClockWidget.appex */ = {isa = PBXFileReference; explicitFileType = wrapper.app-extension; includeInIndex = 0; path = SalaryClockWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A00000000000000000000032 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000033 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A00000000000000000000040 = {isa = PBXGroup; children = (A00000000000000000000041 /* WidgetHost */, A00000000000000000000042 /* SalaryClockWidget */, A00000000000000000000043 /* Products */, ); sourceTree = "<group>"; };
+		A00000000000000000000041 /* WidgetHost */ = {isa = PBXGroup; children = (A00000000000000000000011 /* WidgetHostApp.swift */, A00000000000000000000013 /* Info.plist */, A00000000000000000000014 /* WidgetHost.entitlements */, ); path = WidgetHost; sourceTree = "<group>"; };
+		A00000000000000000000042 /* SalaryClockWidget */ = {isa = PBXGroup; children = (A00000000000000000000012 /* SalaryClockWidget.swift */, A00000000000000000000016 /* Info.plist */, A00000000000000000000015 /* SalaryClockWidget.entitlements */, ); path = SalaryClockWidget; sourceTree = "<group>"; };
+		A00000000000000000000043 /* Products */ = {isa = PBXGroup; children = (A00000000000000000000021 /* Miku Salary Widget Host.app */, A00000000000000000000022 /* SalaryClockWidget.appex */, ); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A00000000000000000000051 /* WidgetHost */ = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000061 /* Build configuration list for PBXNativeTarget "WidgetHost" */; buildPhases = (A00000000000000000000071 /* Sources */, A00000000000000000000032 /* Frameworks */, A00000000000000000000031 /* Embed App Extensions */, ); buildRules = (); dependencies = (A00000000000000000000081 /* PBXTargetDependency */, ); name = WidgetHost; productName = WidgetHost; productReference = A00000000000000000000021 /* Miku Salary Widget Host.app */; productType = "com.apple.product-type.application"; };
+		A00000000000000000000052 /* SalaryClockWidget */ = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000062 /* Build configuration list for PBXNativeTarget "SalaryClockWidget" */; buildPhases = (A00000000000000000000072 /* Sources */, A00000000000000000000033 /* Frameworks */, ); buildRules = (); dependencies = (); name = SalaryClockWidget; productName = SalaryClockWidget; productReference = A00000000000000000000022 /* SalaryClockWidget.appex */; productType = "com.apple.product-type.app-extension"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A00000000000000000000091 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = YES; LastSwiftUpdateCheck = 1500; LastUpgradeCheck = 1500; TargetAttributes = {A00000000000000000000051 = {CreatedOnToolsVersion = 15.0; }; A00000000000000000000052 = {CreatedOnToolsVersion = 15.0; }; }; }; buildConfigurationList = A00000000000000000000060 /* Build configuration list for PBXProject "SalaryClockWidget" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base, "zh-Hans", ); mainGroup = A00000000000000000000040; productRefGroup = A00000000000000000000043 /* Products */; projectDirPath = ""; projectRoot = ""; targets = (A00000000000000000000051 /* WidgetHost */, A00000000000000000000052 /* SalaryClockWidget */, ); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A00000000000000000000071 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000001 /* WidgetHostApp.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		A00000000000000000000072 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000002 /* SalaryClockWidget.swift in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A00000000000000000000081 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = A00000000000000000000052 /* SalaryClockWidget */; targetProxy = A00000000000000000000082 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		A00000000000000000000082 /* PBXContainerItemProxy */ = {isa = PBXContainerItemProxy; containerPortal = A00000000000000000000091 /* Project object */; proxyType = 1; remoteGlobalIDString = A00000000000000000000052; remoteInfo = SalaryClockWidget; };
+/* End PBXContainerItemProxy section */
+
+/* Begin XCBuildConfiguration section */
+		A00000000000000000000101 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {MACOSX_DEPLOYMENT_TARGET = 14.0; SDKROOT = macosx; }; name = Debug; };
+		A00000000000000000000102 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {MACOSX_DEPLOYMENT_TARGET = 14.0; SDKROOT = macosx; }; name = Release; };
+		A00000000000000000000103 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_ENTITLEMENTS = WidgetHost/WidgetHost.entitlements; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; DEVELOPMENT_TEAM = ""; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = WidgetHost/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = com.mikusalary.app; PRODUCT_NAME = "Miku Salary Widget Host"; SWIFT_VERSION = 5.9; }; name = Debug; };
+		A00000000000000000000104 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_ENTITLEMENTS = WidgetHost/WidgetHost.entitlements; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = WidgetHost/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = com.mikusalary.app; PRODUCT_NAME = "Miku Salary Widget Host"; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.9; }; name = Release; };
+		A00000000000000000000105 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; CODE_SIGN_ENTITLEMENTS = SalaryClockWidget/SalaryClockWidget.entitlements; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = SalaryClockWidget/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks @executable_path/../../../../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = com.mikusalary.app.widget; PRODUCT_NAME = SalaryClockWidget; SKIP_INSTALL = YES; SWIFT_VERSION = 5.9; }; name = Debug; };
+		A00000000000000000000106 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; CODE_SIGN_ENTITLEMENTS = SalaryClockWidget/SalaryClockWidget.entitlements; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 2; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = SalaryClockWidget/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../Frameworks @executable_path/../../../../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; PRODUCT_BUNDLE_IDENTIFIER = com.mikusalary.app.widget; PRODUCT_NAME = SalaryClockWidget; SKIP_INSTALL = YES; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.9; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A00000000000000000000060 /* Build configuration list for PBXProject "SalaryClockWidget" */ = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000101 /* Debug */, A00000000000000000000102 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A00000000000000000000061 /* Build configuration list for PBXNativeTarget "WidgetHost" */ = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000103 /* Debug */, A00000000000000000000104 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		A00000000000000000000062 /* Build configuration list for PBXNativeTarget "SalaryClockWidget" */ = {isa = XCConfigurationList; buildConfigurations = (A00000000000000000000105 /* Debug */, A00000000000000000000106 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = A00000000000000000000091 /* Project object */;
+}

@@ -1,0 +1,85 @@
+{
+  "name": "miku-salary",
+  "version": "1.1.0",
+  "private": true,
+  "description": "A Miku-themed real-time MYR salary clock for Windows and macOS, with a WidgetKit companion.",
+  "author": "xiiaomiku",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiiaomiku/miku-salary.git"
+  },
+  "homepage": "https://github.com/xiiaomiku/miku-salary#readme",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && electron .\"",
+    "build": "npm run build:renderer && npm run build:main",
+    "build:renderer": "vite build",
+    "build:main": "tsc -p tsconfig.main.json",
+    "test": "npm run build:main && node tests/salary.test.mjs",
+    "dist:win": "npm run build && electron-builder --win nsis portable",
+    "native:widget": "bash scripts/build-mac-widget.sh",
+    "dist:mac": "npm run native:widget && npm run build && electron-builder --mac dmg zip"
+  },
+  "build": {
+    "appId": "com.mikusalary.app",
+    "productName": "Miku Salary",
+    "asar": true,
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "afterPack": "scripts/after-pack.cjs",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": true,
+      "entitlements": "native/macos-widget/Electron.entitlements",
+      "entitlementsInherit": "native/macos-widget/Electron.entitlements",
+      "extendInfo": {
+        "NSHumanReadableCopyright": "Copyright © 2026 Miku Salary contributors",
+        "LSApplicationCategoryType": "public.app-category.productivity"
+      }
+    },
+    "dmg": {
+      "artifactName": "${productName}-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

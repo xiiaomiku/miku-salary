@@ -1,0 +1,6 @@
+node_modules/
+.npm-cache/
+dist/
+release/
+native/macos-widget/build/
+.DS_Store
