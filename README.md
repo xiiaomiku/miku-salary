@@ -12,7 +12,7 @@ Source: [github.com/xiiaomiku/miku-salary](https://github.com/xiiaomiku/miku-sal
 - Selectable MYR or TWD monthly salary, monthly payday, payout time and local start-time configuration.
 - Actual-calendar-period calculation: a 28-, 29-, 30- or 31-day pay period has the correct hourly/second rate.
 - A continuous all-time total that does not reset when the next pay period begins.
-- Current-cycle earnings/progress, live hourly/minute/second rates, and countdown to the next payday.
+- Current-cycle earnings/progress, live daily/hourly/minute/second rates, and countdown to the next payday. The medium macOS widget also shows the daily rate.
 - Locally persisted settings. On macOS, a small state file in the App Group container is shared with WidgetKit.
 
 ## Project layout
@@ -67,8 +67,8 @@ npm run dist:win
 
 Artifacts are written to `release/`:
 
-- `Miku Salary-Setup-1.2.0.exe` — normal installer.
-- `Miku Salary-Portable-1.2.0.exe` — directly runnable portable version.
+- `Miku Salary-Setup-1.3.0.exe` — normal installer.
+- `Miku Salary-Portable-1.3.0.exe` — directly runnable portable version.
 
 Windows code signing is optional for building but recommended before public distribution, otherwise SmartScreen may show a reputation warning.
 
@@ -110,6 +110,8 @@ The total sums every elapsed piece from the configured start time to now. That m
 All dates are evaluated in the computer's local timezone, matching the entered `datetime-local` start time and payout time.
 
 The MYR/TWD setting changes the displayed currency and symbol; it does not fetch exchange rates or convert the entered salary amount.
+
+Daily salary is the current pay-period rate over 24 hours: `monthly salary × 86,400 seconds ÷ actual pay-period seconds`. It changes with the length of the current pay period.
 
 ## Data and privacy
 

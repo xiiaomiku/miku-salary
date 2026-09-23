@@ -128,6 +128,7 @@ export function App() {
       </section>
 
       <section className="metrics" aria-label="实时薪资速率">
+        <ClockNumber label="日薪" value={formatMoney(snapshot.perDay, settings.currency, 2)} hint="按当前周期折算为 24 小时" />
         <ClockNumber label="每小时" value={formatMoney(snapshot.perHour, settings.currency, 2)} />
         <ClockNumber label="每分钟" value={formatMoney(snapshot.perMinute, settings.currency, 4)} />
         <ClockNumber label="每秒" value={formatMoney(snapshot.perSecond, settings.currency, 6)} />

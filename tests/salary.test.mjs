@@ -42,6 +42,16 @@ test('total remains continuous after passing a payday', () => {
   assert.equal(snapshot.nextPayday.getDate(), 15);
 });
 
+test('daily salary uses the actual pay-cycle duration', () => {
+  const thirtyDayCycle = snapshotAt(settings, new Date('2025-04-20T04:00:00.000Z'));
+  const thirtyOneDayCycle = snapshotAt(settings, new Date('2025-05-20T04:00:00.000Z'));
+  const thirtyDayDuration = thirtyDayCycle.cycle.end.getTime() - thirtyDayCycle.cycle.start.getTime();
+  const thirtyOneDayDuration = thirtyOneDayCycle.cycle.end.getTime() - thirtyOneDayCycle.cycle.start.getTime();
+  assert.ok(Math.abs(thirtyDayCycle.perDay - settings.monthlySalary * 86_400_000 / thirtyDayDuration) < 1e-9);
+  assert.ok(Math.abs(thirtyOneDayCycle.perDay - settings.monthlySalary * 86_400_000 / thirtyOneDayDuration) < 1e-9);
+  assert.ok(thirtyOneDayCycle.perDay < thirtyDayCycle.perDay);
+});
+
 test('a future start reports zero until the clock begins', () => {
   const snapshot = snapshotAt({ ...settings, startAt: '2030-01-01T00:00:00.000Z' }, new Date('2029-12-31T00:00:00.000Z'));
   assert.equal(snapshot.totalEarned, 0);

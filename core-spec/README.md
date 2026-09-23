@@ -12,4 +12,6 @@ The accumulated total sums those portions from `startAt` to now. It therefore ne
 
 Currency selection (`MYR` or `TWD`) changes formatting only. It does not perform exchange-rate conversion and does not alter the calendar calculation.
 
+The daily salary rate is `monthly salary × 86,400 seconds / actual seconds in the current pay period`. Hourly, minute and second rates use the same denominator.
+
 The TypeScript tests under `tests/` cover the important boundaries. Keep `native/macos-widget/SalaryClockWidget/SalaryClockWidget.swift` in lockstep with any future changes to this contract.

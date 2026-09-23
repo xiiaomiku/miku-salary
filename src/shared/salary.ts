@@ -24,6 +24,7 @@ export interface SalarySnapshot {
   totalEarned: number;
   cycleEarned: number;
   cycleProgress: number;
+  perDay: number;
   perSecond: number;
   perMinute: number;
   perHour: number;
@@ -132,6 +133,7 @@ export function snapshotAt(settingsInput: SalarySettings, nowInput = new Date())
     totalEarned: hasStarted ? earnedBetween(startAt, now, settings) : 0,
     cycleEarned,
     cycleProgress: Math.max(0, Math.min(1, (now.getTime() - cycle.start.getTime()) / cycleDurationMs)),
+    perDay: perSecond * 86_400,
     perSecond,
     perMinute: perSecond * 60,
     perHour: perSecond * 3600,

@@ -25,6 +25,7 @@ private struct Cycle {
 private struct SalaryValues {
     let currency: String
     let total: Double
+    let perDay: Double
     let cycleEarned: Double
     let progress: Double
     let nextPayday: Date
@@ -107,6 +108,7 @@ private enum SalaryMath {
         return SalaryValues(
             currency: settings.currency == "TWD" ? "TWD" : "MYR",
             total: hasStarted ? earned(from: start, to: now, settings: settings) : 0,
+            perDay: settings.monthlySalary * 86_400 / duration,
             cycleEarned: hasStarted ? settings.monthlySalary * cycleElapsed : 0,
             progress: max(0, min(1, now.timeIntervalSince(current.start) / duration)),
             nextPayday: current.end
@@ -128,8 +130,8 @@ private enum SalaryMath {
         let minutes = max(0, Int(date.timeIntervalSince(now) / 60))
         let days = minutes / (24 * 60)
         let hours = (minutes % (24 * 60)) / 60
-        if days > 0 { return "(days)天 (hours)小时" }
-        return "(hours)小时 (minutes % 60)分钟"
+        if days > 0 { return "\(days)天 \(hours)小时" }
+        return "\(hours)小时 \(minutes % 60)分钟"
     }
 }
 
@@ -140,7 +142,7 @@ private struct SalaryEntry: TimelineEntry {
 
 private struct SalaryProvider: TimelineProvider {
     func placeholder(in context: Context) -> SalaryEntry {
-        SalaryEntry(date: .now, values: SalaryValues(currency: "TWD", total: 1234.56, cycleEarned: 890.12, progress: 0.42, nextPayday: .now.addingTimeInterval(4 * 86_400)))
+        SalaryEntry(date: .now, values: SalaryValues(currency: "TWD", total: 1234.56, perDay: 100, cycleEarned: 890.12, progress: 0.42, nextPayday: .now.addingTimeInterval(4 * 86_400)))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SalaryEntry) -> Void) {
@@ -172,9 +174,14 @@ private struct SalaryWidgetView: View {
                     .monospacedDigit()
                     .minimumScaleFactor(0.62)
                     .lineLimit(1)
+                if family == .systemMedium {
+                    Text("日薪 \(SalaryMath.money(values.perDay, currency: values.currency))")
+                        .font(.caption.weight(.medium))
+                        .foregroundStyle(.secondary)
+                }
                 Spacer(minLength: 1)
                 HStack {
-                    Text("本周期 (Int((values.progress * 100).rounded()))%")
+                    Text("本周期 \(Int((values.progress * 100).rounded()))%")
                     Spacer()
                     Text(SalaryMath.money(values.cycleEarned, currency: values.currency))
                 }
@@ -195,7 +202,7 @@ private struct SalaryWidgetView: View {
                     }
                 }
                 .frame(height: 5)
-                Text("距下次发薪 (SalaryMath.timeRemaining(until: values.nextPayday, now: entry.date))")
+                Text("距下次发薪 \(SalaryMath.timeRemaining(until: values.nextPayday, now: entry.date))")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
